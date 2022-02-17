@@ -1,0 +1,726 @@
+USE [master]
+GO
+/****** Object:  Database [UTNAcademia]    Script Date: 08/11/2020 17:44:19 ******/
+CREATE DATABASE [UTNAcademia]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'UTNAcademia', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\UTNAcademia.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'UTNAcademia_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\UTNAcademia_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [UTNAcademia] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [UTNAcademia].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [UTNAcademia] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [UTNAcademia] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [UTNAcademia] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [UTNAcademia] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [UTNAcademia] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [UTNAcademia] SET  MULTI_USER 
+GO
+ALTER DATABASE [UTNAcademia] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [UTNAcademia] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [UTNAcademia] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [UTNAcademia] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [UTNAcademia] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [UTNAcademia] SET QUERY_STORE = OFF
+GO
+USE [UTNAcademia]
+GO
+/****** Object:  Table [dbo].[Alumno]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Alumno](
+	[IdAlumno] [int] IDENTITY(1,1) NOT NULL,
+	[NombreApellido] [varchar](70) NOT NULL,
+	[Edad] [int] NOT NULL,
+	[Sexo] [bit] NOT NULL,
+	[BajaLogica] [bit] NOT NULL,
+ CONSTRAINT [PK_Alumno] PRIMARY KEY CLUSTERED 
+(
+	[IdAlumno] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Curso]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Curso](
+	[IdCurso] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](70) NOT NULL,
+	[Descripcion] [varchar](500) NOT NULL,
+	[Precio] [decimal](8, 2) NOT NULL,
+	[TiempoMeses] [int] NOT NULL,
+	[Cupo] [int] NOT NULL,
+	[BajaLogica] [bit] NOT NULL,
+ CONSTRAINT [PK_Curso] PRIMARY KEY CLUSTERED 
+(
+	[IdCurso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Examen]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Examen](
+	[IdExamen] [int] IDENTITY(1,1) NOT NULL,
+	[IdTipoExamen] [int] NOT NULL,
+	[IdAlumno] [int] NOT NULL,
+	[IdCurso] [int] NOT NULL,
+	[Fecha] [varchar](10) NOT NULL,
+	[Nota] [int] NOT NULL,
+ CONSTRAINT [PK_Examen] PRIMARY KEY CLUSTERED 
+(
+	[IdExamen] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Inscripcion]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Inscripcion](
+	[IdInscripcion] [int] IDENTITY(1,1) NOT NULL,
+	[IdAlumno] [int] NOT NULL,
+	[Fecha] [varchar](10) NOT NULL,
+	[PrecioInicial] [decimal](8, 2) NOT NULL,
+	[Descuento] [decimal](8, 2) NOT NULL,
+	[PrecioFinal] [decimal](8, 2) NOT NULL,
+	[PagoAlumno] [decimal](8, 2) NOT NULL,
+	[Vuelto] [decimal](8, 2) NOT NULL,
+ CONSTRAINT [PK_Inscripcion] PRIMARY KEY CLUSTERED 
+(
+	[IdInscripcion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[InscripcionCurso]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[InscripcionCurso](
+	[IdInscripcionCurso] [int] IDENTITY(1,1) NOT NULL,
+	[IdInscripcion] [int] NOT NULL,
+	[IdCurso] [int] NOT NULL,
+	[Precio] [decimal](8, 2) NOT NULL,
+	[BajaLogica] [bit] NOT NULL,
+ CONSTRAINT [PK_InscripcionCurso] PRIMARY KEY CLUSTERED 
+(
+	[IdInscripcionCurso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Programa]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Programa](
+	[IdPrograma] [int] IDENTITY(1,1) NOT NULL,
+	[IdAlumno] [int] NOT NULL,
+	[Nombre] [varchar](30) NOT NULL,
+	[Fecha] [varchar](10) NOT NULL,
+	[CantidadDescargas] [int] NOT NULL,
+	[BajaLogica] [bit] NOT NULL,
+ CONSTRAINT [PK_Programa] PRIMARY KEY CLUSTERED 
+(
+	[IdPrograma] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ProgramaArchivo]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProgramaArchivo](
+	[IDProgramaArchivo] [int] IDENTITY(1,1) NOT NULL,
+	[IDPrograma] [int] NOT NULL,
+	[Ruta] [varchar](300) NOT NULL,
+	[BajaLogica] [bit] NOT NULL,
+ CONSTRAINT [PK_RutaPrograma] PRIMARY KEY CLUSTERED 
+(
+	[IDProgramaArchivo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TipoExamen]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TipoExamen](
+	[IdTipoExamen] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](30) NOT NULL,
+ CONSTRAINT [PK_TipoExamen] PRIMARY KEY CLUSTERED 
+(
+	[IdTipoExamen] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuario]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuario](
+	[IdUsuario] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](10) NOT NULL,
+	[Contrasenia] [varchar](20) NOT NULL,
+ CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[IdUsuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Alumno] ON 
+GO
+INSERT [dbo].[Alumno] ([IdAlumno], [NombreApellido], [Edad], [Sexo], [BajaLogica]) VALUES (1, N'German Bartoli', 21, 1, 0)
+GO
+INSERT [dbo].[Alumno] ([IdAlumno], [NombreApellido], [Edad], [Sexo], [BajaLogica]) VALUES (2, N'Mariana Ali', 49, 0, 1)
+GO
+INSERT [dbo].[Alumno] ([IdAlumno], [NombreApellido], [Edad], [Sexo], [BajaLogica]) VALUES (14, N'Matias Sanguesa', 15, 1, 1)
+GO
+INSERT [dbo].[Alumno] ([IdAlumno], [NombreApellido], [Edad], [Sexo], [BajaLogica]) VALUES (15, N'Marco Bartoli', 16, 1, 1)
+GO
+INSERT [dbo].[Alumno] ([IdAlumno], [NombreApellido], [Edad], [Sexo], [BajaLogica]) VALUES (18, N'Matias', 49, 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Alumno] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Curso] ON 
+GO
+INSERT [dbo].[Curso] ([IdCurso], [Nombre], [Descripcion], [Precio], [TiempoMeses], [Cupo], [BajaLogica]) VALUES (1, N'Laboratorio de Computacion 4', N'En esta unidad haremos un repaso de lo visto en la materia Programacion III.
+Veremos los conceptos necesarios para poder construir paginas web estaticas, en
+otras palabras, paginas que no requieren ningun software adicional para ser
+construidas, pero que a su vez no tienen la capacidad de mostrar datos dinamicos
+en base a consultas, o bien poder resguardar informacion obtenida de un formulario. ', CAST(100.00 AS Decimal(8, 2)), 4, 100, 1)
+GO
+INSERT [dbo].[Curso] ([IdCurso], [Nombre], [Descripcion], [Precio], [TiempoMeses], [Cupo], [BajaLogica]) VALUES (2, N'Diseno y Administracion de Base de Datos', N'Sql Server Management Estudio', CAST(100.00 AS Decimal(8, 2)), 4, 100, 1)
+GO
+INSERT [dbo].[Curso] ([IdCurso], [Nombre], [Descripcion], [Precio], [TiempoMeses], [Cupo], [BajaLogica]) VALUES (19, N'Matematica', N'Es el estudio de entes abstractos y sus relaciones como numeros, figuras geometricas, y simbolos. El objetivo de las matematicas es desarrollar el razonamiento logico o pensamiento matematico, a traves de la practica de un lenguaje simplificado con herramientas para la solucion de diferentes tipos problemas.', CAST(200.00 AS Decimal(8, 2)), 1, 20, 1)
+GO
+INSERT [dbo].[Curso] ([IdCurso], [Nombre], [Descripcion], [Precio], [TiempoMeses], [Cupo], [BajaLogica]) VALUES (22, N'Diseno Grafico', N'Dibujar', CAST(20.00 AS Decimal(8, 2)), 1, 70, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Curso] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Inscripcion] ON 
+GO
+INSERT [dbo].[Inscripcion] ([IdInscripcion], [IdAlumno], [Fecha], [PrecioInicial], [Descuento], [PrecioFinal], [PagoAlumno], [Vuelto]) VALUES (1, 1, N'20/10/2020', CAST(200.00 AS Decimal(8, 2)), CAST(40.00 AS Decimal(8, 2)), CAST(160.00 AS Decimal(8, 2)), CAST(200.00 AS Decimal(8, 2)), CAST(40.00 AS Decimal(8, 2)))
+GO
+INSERT [dbo].[Inscripcion] ([IdInscripcion], [IdAlumno], [Fecha], [PrecioInicial], [Descuento], [PrecioFinal], [PagoAlumno], [Vuelto]) VALUES (2, 2, N'26/10/2020', CAST(100.00 AS Decimal(8, 2)), CAST(10.00 AS Decimal(8, 2)), CAST(90.00 AS Decimal(8, 2)), CAST(200.00 AS Decimal(8, 2)), CAST(110.00 AS Decimal(8, 2)))
+GO
+INSERT [dbo].[Inscripcion] ([IdInscripcion], [IdAlumno], [Fecha], [PrecioInicial], [Descuento], [PrecioFinal], [PagoAlumno], [Vuelto]) VALUES (3, 1, N'23/03/10', CAST(100.00 AS Decimal(8, 2)), CAST(10.00 AS Decimal(8, 2)), CAST(90.00 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), CAST(10.00 AS Decimal(8, 2)))
+GO
+INSERT [dbo].[Inscripcion] ([IdInscripcion], [IdAlumno], [Fecha], [PrecioInicial], [Descuento], [PrecioFinal], [PagoAlumno], [Vuelto]) VALUES (4, 1, N'23/03/10', CAST(200.00 AS Decimal(8, 2)), CAST(40.00 AS Decimal(8, 2)), CAST(160.00 AS Decimal(8, 2)), CAST(400.00 AS Decimal(8, 2)), CAST(240.00 AS Decimal(8, 2)))
+GO
+INSERT [dbo].[Inscripcion] ([IdInscripcion], [IdAlumno], [Fecha], [PrecioInicial], [Descuento], [PrecioFinal], [PagoAlumno], [Vuelto]) VALUES (5, 14, N'02/11/2020', CAST(200.00 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), CAST(500.00 AS Decimal(8, 2)), CAST(400.00 AS Decimal(8, 2)))
+GO
+INSERT [dbo].[Inscripcion] ([IdInscripcion], [IdAlumno], [Fecha], [PrecioInicial], [Descuento], [PrecioFinal], [PagoAlumno], [Vuelto]) VALUES (8, 15, N'02/11/2020', CAST(200.00 AS Decimal(8, 2)), CAST(40.00 AS Decimal(8, 2)), CAST(160.00 AS Decimal(8, 2)), CAST(200.00 AS Decimal(8, 2)), CAST(40.00 AS Decimal(8, 2)))
+GO
+SET IDENTITY_INSERT [dbo].[Inscripcion] OFF
+GO
+SET IDENTITY_INSERT [dbo].[InscripcionCurso] ON 
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (1, 1, 1, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (2, 1, 2, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (3, 2, 1, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (4, 3, 1, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (5, 4, 1, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (7, 5, 1, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (8, 5, 2, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (11, 8, 2, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+INSERT [dbo].[InscripcionCurso] ([IdInscripcionCurso], [IdInscripcion], [IdCurso], [Precio], [BajaLogica]) VALUES (12, 8, 1, CAST(100.00 AS Decimal(8, 2)), 1)
+GO
+SET IDENTITY_INSERT [dbo].[InscripcionCurso] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Programa] ON 
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (1, 1, N'Notepad++', N'25/10/2020', 1, 1)
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (2, 1, N'Steam', N'26/10/2020', 2, 1)
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (3, 2, N'Youtube', N'28/28/30', 0, 0)
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (4, 2, N'Discord', N'28/28/30', 14, 1)
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (5, 1, N'TeamSpeak3', N'28/28/30', 8, 1)
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (6, 15, N'CCleaner', N'02/11/2020', 3, 1)
+GO
+INSERT [dbo].[Programa] ([IdPrograma], [IdAlumno], [Nombre], [Fecha], [CantidadDescargas], [BajaLogica]) VALUES (7, 2, N'Pacy', N'28/28/30', 2, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Programa] OFF
+GO
+SET IDENTITY_INSERT [dbo].[ProgramaArchivo] ON 
+GO
+INSERT [dbo].[ProgramaArchivo] ([IDProgramaArchivo], [IDPrograma], [Ruta], [BajaLogica]) VALUES (28, 4, N'Archivos/Anonimous.jpg', 1)
+GO
+INSERT [dbo].[ProgramaArchivo] ([IDProgramaArchivo], [IDPrograma], [Ruta], [BajaLogica]) VALUES (31, 5, N'Archivos/WHSGer.png', 1)
+GO
+INSERT [dbo].[ProgramaArchivo] ([IDProgramaArchivo], [IDPrograma], [Ruta], [BajaLogica]) VALUES (32, 2, N'Archivos/keanu_neo.jpg', 1)
+GO
+INSERT [dbo].[ProgramaArchivo] ([IDProgramaArchivo], [IDPrograma], [Ruta], [BajaLogica]) VALUES (33, 6, N'Archivos/CastilloRojo.jpg', 1)
+GO
+INSERT [dbo].[ProgramaArchivo] ([IDProgramaArchivo], [IDPrograma], [Ruta], [BajaLogica]) VALUES (34, 7, N'Archivos/RanchoRojo.jpg', 1)
+GO
+SET IDENTITY_INSERT [dbo].[ProgramaArchivo] OFF
+GO
+SET IDENTITY_INSERT [dbo].[TipoExamen] ON 
+GO
+INSERT [dbo].[TipoExamen] ([IdTipoExamen], [Nombre]) VALUES (1, N'Parcial')
+GO
+INSERT [dbo].[TipoExamen] ([IdTipoExamen], [Nombre]) VALUES (2, N'Final')
+GO
+SET IDENTITY_INSERT [dbo].[TipoExamen] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Usuario] ON 
+GO
+INSERT [dbo].[Usuario] ([IdUsuario], [Nombre], [Contrasenia]) VALUES (1, N'admin', N'admin')
+GO
+SET IDENTITY_INSERT [dbo].[Usuario] OFF
+GO
+ALTER TABLE [dbo].[Examen]  WITH CHECK ADD  CONSTRAINT [FK_Examen_Alumno] FOREIGN KEY([IdAlumno])
+REFERENCES [dbo].[Alumno] ([IdAlumno])
+GO
+ALTER TABLE [dbo].[Examen] CHECK CONSTRAINT [FK_Examen_Alumno]
+GO
+ALTER TABLE [dbo].[Examen]  WITH CHECK ADD  CONSTRAINT [FK_Examen_Curso] FOREIGN KEY([IdCurso])
+REFERENCES [dbo].[Curso] ([IdCurso])
+GO
+ALTER TABLE [dbo].[Examen] CHECK CONSTRAINT [FK_Examen_Curso]
+GO
+ALTER TABLE [dbo].[Examen]  WITH CHECK ADD  CONSTRAINT [FK_Examen_TipoExamen] FOREIGN KEY([IdTipoExamen])
+REFERENCES [dbo].[TipoExamen] ([IdTipoExamen])
+GO
+ALTER TABLE [dbo].[Examen] CHECK CONSTRAINT [FK_Examen_TipoExamen]
+GO
+ALTER TABLE [dbo].[Inscripcion]  WITH CHECK ADD  CONSTRAINT [FK_Inscripcion_Alumno] FOREIGN KEY([IdAlumno])
+REFERENCES [dbo].[Alumno] ([IdAlumno])
+GO
+ALTER TABLE [dbo].[Inscripcion] CHECK CONSTRAINT [FK_Inscripcion_Alumno]
+GO
+ALTER TABLE [dbo].[InscripcionCurso]  WITH CHECK ADD  CONSTRAINT [FK_InscripcionCurso_Curso1] FOREIGN KEY([IdCurso])
+REFERENCES [dbo].[Curso] ([IdCurso])
+GO
+ALTER TABLE [dbo].[InscripcionCurso] CHECK CONSTRAINT [FK_InscripcionCurso_Curso1]
+GO
+ALTER TABLE [dbo].[InscripcionCurso]  WITH CHECK ADD  CONSTRAINT [FK_InscripcionCurso_Inscripcion] FOREIGN KEY([IdInscripcion])
+REFERENCES [dbo].[Inscripcion] ([IdInscripcion])
+GO
+ALTER TABLE [dbo].[InscripcionCurso] CHECK CONSTRAINT [FK_InscripcionCurso_Inscripcion]
+GO
+ALTER TABLE [dbo].[Programa]  WITH CHECK ADD  CONSTRAINT [FK_Programa_Alumno] FOREIGN KEY([IdAlumno])
+REFERENCES [dbo].[Alumno] ([IdAlumno])
+GO
+ALTER TABLE [dbo].[Programa] CHECK CONSTRAINT [FK_Programa_Alumno]
+GO
+ALTER TABLE [dbo].[ProgramaArchivo]  WITH CHECK ADD  CONSTRAINT [FK_RutaPrograma_Programa] FOREIGN KEY([IDPrograma])
+REFERENCES [dbo].[Programa] ([IdPrograma])
+GO
+ALTER TABLE [dbo].[ProgramaArchivo] CHECK CONSTRAINT [FK_RutaPrograma_Programa]
+GO
+/****** Object:  StoredProcedure [dbo].[SpAlumnoListado]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpAlumnoListado]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT        IdAlumno, NombreApellido, Edad, Sexo, BajaLogica
+FROM            dbo.Alumno
+WHERE        (BajaLogica = 1)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpAlumnoObtenerXAlumnoId]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpAlumnoObtenerXAlumnoId]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+	@AlumnoIdSeleccionado int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        IdAlumno, NombreApellido, Edad, Sexo, BajaLogica
+FROM            dbo.Alumno
+where		IdAlumno = @AlumnoIdSeleccionado 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpConsultas5Programas]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpConsultas5Programas] 
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        TOP (5) dbo.Programa.IdPrograma,   dbo.Programa.Nombre, dbo.Programa.Fecha, dbo.Programa.CantidadDescargas, dbo.Programa.BajaLogica, dbo.Programa.IdAlumno, dbo.Alumno.NombreApellido
+FROM            dbo.Programa INNER JOIN
+                         dbo.Alumno ON dbo.Programa.IdAlumno = dbo.Alumno.IdAlumno
+WHERE        (dbo.Programa.CantidadDescargas <> 0)
+ORDER BY dbo.Programa.CantidadDescargas DESC
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpConsultasAlumnosConDescuento]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpConsultasAlumnosConDescuento]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        dbo.Alumno.IdAlumno, dbo.Alumno.NombreApellido, dbo.Alumno.Edad, dbo.Alumno.Sexo, SUM(dbo.Inscripcion.Descuento) AS Expr2
+FROM            dbo.Alumno INNER JOIN
+                         dbo.Inscripcion ON dbo.Alumno.IdAlumno = dbo.Inscripcion.IdAlumno
+WHERE        (dbo.Alumno.BajaLogica = 1)
+GROUP BY dbo.Alumno.IdAlumno, dbo.Alumno.NombreApellido, dbo.Alumno.Edad, dbo.Alumno.Sexo
+HAVING        (SUM(dbo.Inscripcion.Descuento) <> 0)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpConsultasAlumnosCursoSeleccionado]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpConsultasAlumnosCursoSeleccionado]
+	-- Add the parameters for the stored procedure here
+	@IdCurso int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        dbo.Inscripcion.IdInscripcion, dbo.Alumno.IdAlumno, dbo.Alumno.NombreApellido, dbo.Alumno.Edad, dbo.Alumno.Sexo
+FROM            dbo.Alumno INNER JOIN
+                         dbo.Inscripcion ON dbo.Alumno.IdAlumno = dbo.Inscripcion.IdAlumno INNER JOIN
+                         dbo.InscripcionCurso ON dbo.Inscripcion.IdInscripcion = dbo.InscripcionCurso.IdInscripcion INNER JOIN
+                         dbo.Curso ON dbo.InscripcionCurso.IdCurso = dbo.Curso.IdCurso
+WHERE        (dbo.Alumno.BajaLogica = 1) AND (dbo.Curso.BajaLogica = 1) and dbo.Curso.IdCurso = @IdCurso and dbo.InscripcionCurso.BajaLogica = 1
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpConsultasTotalDescuentos]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpConsultasTotalDescuentos]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        SUM(dbo.Inscripcion.Descuento) AS Expr1
+FROM            dbo.Inscripcion INNER JOIN
+                         dbo.Alumno ON dbo.Inscripcion.IdAlumno = dbo.Alumno.IdAlumno
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpConsultasTotalFacturadoPorCurso]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpConsultasTotalFacturadoPorCurso]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	-- SELECT <@Param1, sysname, @p1>, <@Param2, sysname, @p2>
+
+SELECT        dbo.Curso.IdCurso, dbo.Curso.Nombre, SUM(dbo.InscripcionCurso.Precio) AS Expr1
+FROM            dbo.Curso INNER JOIN
+                         dbo.InscripcionCurso ON dbo.Curso.IdCurso = dbo.InscripcionCurso.IdCurso INNER JOIN
+                         dbo.Inscripcion ON dbo.InscripcionCurso.IdInscripcion = dbo.Inscripcion.IdInscripcion
+GROUP BY dbo.Curso.Nombre, dbo.Curso.IdCurso
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpCursoListado]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpCursoListado]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT        IdCurso, Nombre, Descripcion, Precio, TiempoMeses, Cupo
+FROM            dbo.Curso
+where           BajaLogica = 1
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpCursoObtenerXCursoId]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpCursoObtenerXCursoId]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+ @CursoIdSeleccionado int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT        IdCurso, Nombre, Descripcion, Precio, TiempoMeses, Cupo, BajaLogica
+FROM            dbo.Curso
+where			IdCurso = @CursoIdSeleccionado
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpDesabilitarAlumnoDelCurso]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpDesabilitarAlumnoDelCurso] 
+	-- Add the parameters for the stored procedure here
+		@alumnoId int,
+	@cursoId int
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	Update
+                    InscripcionCurso
+					set dbo.InscripcionCurso.BajaLogica = 0
+					FROM            dbo.Alumno INNER JOIN
+                         dbo.Inscripcion ON dbo.Alumno.IdAlumno = dbo.Inscripcion.IdAlumno INNER JOIN
+                         dbo.InscripcionCurso ON dbo.Inscripcion.IdInscripcion = dbo.InscripcionCurso.IdInscripcion
+					where dbo.InscripcionCurso.IdCurso = @cursoId and dbo.Alumno.IdAlumno= @alumnoId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpProgramaListado]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpProgramaListado]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        dbo.Programa.IdPrograma, dbo.Programa.IdAlumno,  dbo.Programa.Nombre, dbo.Programa.Fecha, dbo.Programa.CantidadDescargas, dbo.Programa.BajaLogica
+FROM            dbo.Programa INNER JOIN
+                         dbo.Alumno ON dbo.Programa.IdAlumno = dbo.Alumno.IdAlumno
+ORDER BY dbo.Programa.CantidadDescargas DESC
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SpProgramaObtenerXProgramaId]    Script Date: 08/11/2020 17:44:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[SpProgramaObtenerXProgramaId]
+	-- Add the parameters for the stored procedure here
+	--<@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
+	--<@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+	@ProgramaIdSeleccionado int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+SELECT        IdPrograma, IdAlumno, Nombre, Fecha, CantidadDescargas, BajaLogica
+FROM            dbo.Programa
+where		IdPrograma = @ProgramaIdSeleccionado
+END
+GO
+USE [master]
+GO
+ALTER DATABASE [UTNAcademia] SET  READ_WRITE 
+GO
