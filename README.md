@@ -15,15 +15,43 @@ La academia nos pide un sistema con interfaz web que permita a cualquier navegan
   - Listado de los 5 programas más descargados.
   - Listado de todos los alumnos que accedieron a algún descuento. Si un alumno tiene descuentos en más de un curso, sólo debe aparecer una única vez en el listado.
 
-# Images
-- Login
+# Imagenes
 
-![Login](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Inicio.png)
-
-- Login (Admin)
+- Inicio (Admin)
 
 ![Login (Admin)](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Inicio%20Completo.png)
 
-## Members
+# Programas
+
+![Listado de Programas](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Programa/Listado%20de%20Programas%20(admin).png)
+
+## Consultas
+
+- Top 5 Programas
+
+![Top 5 Programas](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Consultas/Top%205%20Programas.png)
+
+- Alumnos por curso
+
+![Alumnos por curso](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Consultas/Alumnos%20por%20Curso.png)
+
+![Alumnos del Curso](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Consultas/Alumnos%20del%20Curso.png)
+
+
+<!--
+- Inicio
+
+![Login](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Inicio.png)
+
+- Login
+
+![Login (Admin)](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Login%201.png)
+
+- Login Error
+
+![Login (Admin)](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Login%202.png)
+-->
+
+## Miembros
 
 - German Bartoli - [LinkedIn](https://www.linkedin.com/in/bartoligerman497/)
