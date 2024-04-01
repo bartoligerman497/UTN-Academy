@@ -19,3 +19,11 @@ La academia nos pide un sistema con interfaz web que permita a cualquier navegan
 - Login
 
 ![Login](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Inicio.png)
+
+- Login (Admin)
+
+![Login (Admin)](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Inicio%20Completo.png)
+
+## Members
+
+- German Bartoli - [LinkedIn](https://www.linkedin.com/in/bartoligerman497/)
