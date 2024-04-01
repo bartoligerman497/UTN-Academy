@@ -23,7 +23,11 @@ La academia nos pide un sistema con interfaz web que permita a cualquier navegan
 
 # Programas
 
-![Listado de Programas](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Programa/Listado%20de%20Programas%20(admin).png)
+![Listado de Programas (Admin)](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Programa/Listado%20de%20Programas%20(admin).png)
+
+![Listado de Programas](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Programa/Listado%20de%20Programas.png)
+
+![Alta de Programa](https://raw.githubusercontent.com/bartoligerman497/UTN-Academy/main/docs/images/Programa/Alta%20Programa.png)
 
 ## Consultas
 
